@@ -1,3 +1,5 @@
+import {Random} from "nlptoolkit-util/dist/Random";
+
 export class Bootstrap<T> {
 
     private instanceList: Array<T>
@@ -11,10 +13,11 @@ export class Bootstrap<T> {
      */
     constructor(instanceList: Array<T>, seed: number) {
         let N;
+        let random = new Random(seed)
         N = instanceList.length
         this.instanceList = new Array<T>()
         for (let i = 0; i < N; i++){
-            this.instanceList.push(instanceList[Math.floor(Math.random() * N)])
+            this.instanceList.push(instanceList[random.nextInt(N)])
         }
     }
 

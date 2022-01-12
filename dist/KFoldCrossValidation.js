@@ -4,13 +4,14 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./CrossValidation"], factory);
+        define(["require", "exports", "./CrossValidation", "nlptoolkit-util/dist/Random"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.KFoldCrossValidation = void 0;
     const CrossValidation_1 = require("./CrossValidation");
+    const Random_1 = require("nlptoolkit-util/dist/Random");
     class KFoldCrossValidation extends CrossValidation_1.CrossValidation {
         /**
          * A constructor of {@link KFoldCrossValidation} class which takes a sample as an array of instances, a K (K in K-fold cross-validation) and a seed number,
@@ -23,7 +24,8 @@
         constructor(instanceList, K, seed) {
             super();
             this.instanceList = instanceList;
-            this.shuffleArray(this.instanceList);
+            let random = new Random_1.Random(seed);
+            random.shuffle(this.instanceList);
             this.N = instanceList.length;
             this.K = K;
         }

@@ -4,12 +4,13 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports"], factory);
+        define(["require", "exports", "nlptoolkit-util/dist/Random"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Bootstrap = void 0;
+    const Random_1 = require("nlptoolkit-util/dist/Random");
     class Bootstrap {
         /**
          * A constructor of {@link Bootstrap} class which takes a sample an array of instances and a seed number, then creates a bootstrap
@@ -20,10 +21,11 @@
          */
         constructor(instanceList, seed) {
             let N;
+            let random = new Random_1.Random(seed);
             N = instanceList.length;
             this.instanceList = new Array();
             for (let i = 0; i < N; i++) {
-                this.instanceList.push(instanceList[Math.floor(Math.random() * N)]);
+                this.instanceList.push(instanceList[random.nextInt(N)]);
             }
         }
         /**

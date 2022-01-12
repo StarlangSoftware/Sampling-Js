@@ -1,4 +1,5 @@
 import {CrossValidation} from "./CrossValidation";
+import {Random} from "nlptoolkit-util/dist/Random";
 
 export class KFoldCrossValidation<T> extends CrossValidation<T> {
 
@@ -16,7 +17,8 @@ export class KFoldCrossValidation<T> extends CrossValidation<T> {
     constructor(instanceList: Array<T>, K: number, seed: number) {
         super();
         this.instanceList = instanceList
-        this.shuffleArray(this.instanceList)
+        let random = new Random(seed)
+        random.shuffle(this.instanceList)
         this.N = instanceList.length
         this.K = K
     }
